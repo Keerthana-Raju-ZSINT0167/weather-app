@@ -1,0 +1,32 @@
+<table bgcolor="lightgrey" align="center" cellspacing="21" cellpadding="21">
+  <caption align="top">{{ locationData?.location?.name }} - Monthly
+    Weather</caption>
+  <thead>
+    <tr>
+      <th *ngFor="let dayHeader of days">{{ dayHeader }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="monthlyData">
+      <ng-container *ngFor="let chunk of monthlyData.reverse() | chunk:7">
+        <tr>
+          <ng-container *ngFor="let getMonthlyData of chunk">
+            <ng-container *ngIf="getMonthlyData.forecast">
+              <ng-container
+                *ngFor="let day of getMonthlyData.forecast.forecastday.slice(0, 7); let i = index">
+                <td>
+                  {{ day.date }}
+                  <br />
+                  {{ day.day.maxtemp_c }}°C
+                  <br />
+                  <img src="{{ day.day.condition.icon }}"
+                    alt="{{ day.day.condition.text }}" />
+                </td>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </tr>
+      </ng-container>
+    </ng-container>
+  </tbody>
+</table>
